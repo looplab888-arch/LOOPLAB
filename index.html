@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!--
+      Favicons.
+
+      Google needs a square icon whose sides are a multiple of 48px, so the PNGs
+      are 96 and 192. The previous markup declared four sizes (512/192/32/16)
+      that all pointed at the same 512x512 file, which is both inaccurate and
+      not a multiple of 48.
+
+      favicon.ico is a real multi-resolution icon (16/32/48). It has to exist as
+      a file: crawlers and browsers request /favicon.ico directly, and the SPA
+      rewrite was answering that request with the HTML page.
+    -->
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Both looplab.lk and www.looplab.lk answer 200, so without this Google
+         sees two duplicate sites and has to guess which is authoritative.
+         A www -> apex redirect in the Amplify console is the other half. -->
+    <link rel="canonical" href="https://looplab.lk/" />
+
+    <!-- Google Verification -->
+    <meta name="google-site-verification" content="HwUJUTmTjaRhAXrgwBR1KQSeBBOgGfYPTFhl4KC-PZQ" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LoopLab - Precision in Every Cycle</title>
+    <meta name="description" content="LoopLab is a software studio in Colombo, Sri Lanka. We build web and mobile products, applied machine learning, and research systems." />
+    <meta name="keywords" content="LoopLab, AI, software, machine learning, data visualization, Sri Lanka, engineering, technology" />
+    <meta name="author" content="LoopLab (PVT) LTD" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- ✅ Open Graph - Controls how the site looks in Google Search & social shares -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://looplab.lk/" />
+    <meta property="og:title" content="LoopLab - Precision in Every Cycle" />
+    <meta property="og:description" content="LoopLab is a software studio in Colombo, Sri Lanka. We build web and mobile products, applied machine learning, and research systems." />
+    <!-- A real 1200x630 landscape card. This used to point at the 512x512
+         favicon, which every platform rendered as a small square thumbnail
+         instead of a preview card. -->
+    <meta property="og:image" content="https://looplab.lk/og-image.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="LoopLab, a software studio in Colombo, Sri Lanka. We build software people can trust." />
+    <meta property="og:site_name" content="LoopLab" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ✅ Twitter Card -->
+    <!-- summary_large_image, not summary: summary crops to a small square. -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="LoopLab - Precision in Every Cycle" />
+    <meta name="twitter:description" content="LoopLab is a software studio in Colombo, Sri Lanka. We build web and mobile products, applied machine learning, and research systems." />
+    <meta name="twitter:image" content="https://looplab.lk/og-image.jpg" />
+    <meta name="twitter:image:alt" content="LoopLab, a software studio in Colombo, Sri Lanka. We build software people can trust." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <!--
+      Material Symbols, subsetted via icon_names to only the glyphs this site
+      uses. The full variable font is 1.1 MB; this subset is 26 KB.
+
+      IMPORTANT: a new icon added anywhere in src/ must also be added to the
+      icon_names list below, or it renders as its raw ligature text instead of
+      the glyph. Run `npm run icons` to print a regenerated list.
+
+      display=block rather than swap for the same reason: while an icon font is
+      loading, swap would show the word "arrow_forward" where the arrow belongs.
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;icon_names=all_inclusive,alternate_email,architecture,arrow_back,arrow_forward,arrow_outward,auto_mode,bookmark,call,check_circle,close,cloud_off,cloud_upload,cycle,dashboard,description,devices,done,eco,error,event_available,gavel,group,history_toggle_off,insights,launch,location_on,lock,login,logout,manage_accounts,neurology,notifications,payments,person,psychology,school,science,search,search_off,settings,settings_suggest,terminal,verified,visibility,warning,work_history&amp;display=block" rel="stylesheet" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,179 @@
+/* Fonts are requested from index.html, which has the preconnect hints and does
+   not block CSS parsing the way an @import here does. */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The dark surfaces live here rather than in tailwind.config.js on purpose.
+   Config changes only apply on a dev-server restart, so a `bg-ink` utility
+   that had not compiled yet rendered white text on a white page. These are
+   plain CSS, so they hot-reload and cannot silently disappear. */
+:root {
+  --ink: #150c1c;
+  --ink-soft: #281e31;
+  /* The palette had no success colour, so `text-success` / `bg-success` were
+     used in the dashboard without ever resolving, and the Projects page fell
+     back to green-500 at 2.28:1. This clears 4.5:1 on every light surface. */
+  --success: #2e6b34;
+  --success-subtle: #e3f3e4;
+}
+
+@layer components {
+  /* Background and foreground travel together: if these ever fail to load the
+     result is dark text on white, not invisible text. */
+  .surface-ink {
+    background-color: var(--ink);
+    color: #ffffff;
+  }
+
+  .surface-ink-soft {
+    background-color: var(--ink-soft);
+    color: #ffffff;
+  }
+
+  .ink-scrim {
+    background-color: color-mix(in srgb, var(--ink) 72%, transparent);
+  }
+
+  .ink-fade {
+    background-image: linear-gradient(to top, var(--ink), transparent);
+  }
+
+  .text-success {
+    color: var(--success);
+  }
+
+  .bg-success-subtle {
+    background-color: var(--success-subtle);
+  }
+}
+
+@layer base {
+  body {
+    font-family: 'Manrope', sans-serif;
+    background-color: #fbf9fd;
+    color: #171c21;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Placeholders need the same 4.5:1 as body text. Tailwind's preflight
+     default and the outline-variant token both sat near 1.7:1. This clears
+     4.5 against white and against every tinted input surface in use. */
+  input::placeholder,
+  textarea::placeholder {
+    color: #6b6270;
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .material-symbols-filled {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  /* The three *-gradient utilities were all the same #613380 -> #7a4b9a ramp,
+     a shift so slight it read as a muddy flat fill rather than a gradient.
+     Colour is now carried by solid primary and by the drenched ink sections. */
+
+  .ambient-shadow {
+    box-shadow: 0 40px 60px -20px rgba(23, 28, 33, 0.08);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ── Navbar Logo ─────────────────────────────────────── */
+/* The source PNG is a square canvas with the wordmark occupying only the
+   middle band, so the mark is clipped to its visible bounds. This keeps the
+   layout box the same size as what actually paints. */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.logo-clip {
+  display: block;
+  position: relative;
+  width: 108px;
+  height: 56px;
+  overflow: hidden;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 132px;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── Focus ───────────────────────────────────────────── */
+/* Several inputs set outline-none and relied on a 20%-opacity ring, which is
+   not perceivable. This gives every focusable element a visible fallback. */
+@layer base {
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid #613380;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* On dark or primary-coloured surfaces the purple ring disappears. */
+  .on-dark :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline-color: #ffffff;
+  }
+}
+
+/* ── Animation utilities ─────────────────────────────── */
+/* These replace tailwindcss-animate classes (animate-in / fade-in / zoom-in /
+   slide-in-from-top) that were in the markup without the plugin installed. */
+@keyframes ll-fade-zoom-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ll-fade-slide-down {
+  from { opacity: 0; transform: translateY(-0.5rem); }
+  to { opacity: 1; transform: none; }
+}
+
+@layer utilities {
+  .ll-fade-zoom-in {
+    animation: ll-fade-zoom-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .ll-fade-slide-down {
+    animation: ll-fade-slide-down 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-spin-slow {
+    animation: spin 4s linear infinite;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
