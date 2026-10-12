@@ -1,6 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import api from '../services/api';
 
+const CAREERS_EMAIL = 'careers@looplab.lk';
+const DEFAULT_MAILTO_SUBJECT = encodeURIComponent('Job Application - LoopLab');
+const DEFAULT_MAILTO_BODY = encodeURIComponent(
+  'Hello LoopLab Hiring Team,\n\nPlease find attached my CV/Resume for your review.\n\nPosition of Interest: \nFull Name: \nContact Number: \nLinkedIn / Portfolio: \n\nThank you!'
+);
+const DEFAULT_MAILTO_HREF = `mailto:${CAREERS_EMAIL}?subject=${DEFAULT_MAILTO_SUBJECT}&body=${DEFAULT_MAILTO_BODY}`;
+
 /**
  * Category chip colours.
  *
@@ -224,18 +231,32 @@ function JobDetailModal({ job, onClose, imsUrl }) {
         </div>
 
         {/* Sticky footer */}
-        <div className="px-6 sm:px-8 py-5 border-t border-outline-variant/40 bg-surface-container-low flex items-center justify-between gap-4 shrink-0">
-          <p className="text-xs text-outline">
-            Apply via the LoopLab Intern Portal
+        <div className="px-6 sm:px-8 py-5 border-t border-outline-variant/40 bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
+          <p className="text-xs text-outline text-center sm:text-left">
+            Portal updating? Email CV to{' '}
+            <a
+              href={`mailto:${CAREERS_EMAIL}?subject=${encodeURIComponent(`Job Application: ${job.title}`)}`}
+              className="text-primary font-semibold underline underline-offset-2 hover:opacity-80"
+            >
+              {CAREERS_EMAIL}
+            </a>
           </p>
-          <button
-            id={`modal-apply-${job.id}`}
-            onClick={handleApply}
-            className="bg-primary text-on-primary font-bold px-7 py-3 rounded-xl shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center gap-2"
-          >
-            Apply Now
-            <span className="material-symbols-outlined text-base">arrow_forward</span>
-          </button>
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+            <a
+              href={`mailto:${CAREERS_EMAIL}?subject=${encodeURIComponent(`Job Application: ${job.title}`)}`}
+              className="px-5 py-3 rounded-xl border border-primary text-primary font-bold text-sm hover:bg-primary/5 transition-all text-center flex-1 sm:flex-initial"
+            >
+              Email CV Directly
+            </a>
+            <button
+              id={`modal-apply-${job.id}`}
+              onClick={handleApply}
+              className="bg-primary text-on-primary font-bold px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2 text-sm flex-1 sm:flex-initial"
+            >
+              Apply via Portal
+              <span className="material-symbols-outlined text-base">arrow_forward</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -259,6 +280,13 @@ export default function CareersHub() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [activeJob, setActiveJob]     = useState(null);
+  const [copied, setCopied]           = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(CAREERS_EMAIL);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   // Trailing slashes in VITE_IMS_URL produced a "//login" path that the IMS
   // router does not match, so the Intern tab was never selected. Normalise here
@@ -360,26 +388,65 @@ export default function CareersHub() {
         </div>
       </header>
 
-      {/* Intern Portal Banner - Moved from sidebar */}
-      <div className="mb-10 bg-primary-container rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 text-on-primary-container ambient-shadow">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-            <span className="material-symbols-outlined text-white" style={{ fontVariationSettings: "'FILL' 1" }}>manage_accounts</span>
+      {/* Portal Deployment and Direct Email Application Notice */}
+      <div className="mb-10 bg-surface-container-low border border-primary/25 rounded-2xl p-6 sm:p-7 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 ambient-shadow">
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+            <svg className="w-6 h-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
           </div>
-          <div>
-            <div className="text-lg font-bold">Already applied?</div>
-            <div className="text-sm opacity-80">Track your application status and update your profile on the intern portal.</div>
+          <div className="space-y-1.5">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-primary/15 text-primary">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                Direct Application Notice
+              </span>
+              <span className="text-xs text-on-surface-variant font-medium">Recruitment portal updating</span>
+            </div>
+            <h2 className="text-lg font-bold text-on-surface">
+              We are actively hiring! Send your CV directly via email
+            </h2>
+            <p className="text-sm text-on-surface-variant max-w-2xl leading-relaxed">
+              Our automated portal is undergoing scheduled deployment. You can send your resume/CV directly to{' '}
+              <a
+                href={DEFAULT_MAILTO_HREF}
+                className="text-primary font-semibold underline underline-offset-2 hover:opacity-80"
+              >
+                {CAREERS_EMAIL}
+              </a>
+              . Our recruitment team reviews every submission promptly.
+            </p>
           </div>
         </div>
-        <a 
-          href={`${IMS_URL}/login?tab=intern`} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary font-bold rounded-xl hover:bg-primary-fixed transition-all shadow-lg shadow-primary/10 whitespace-nowrap"
-        >
-          <span className="material-symbols-outlined text-xl">login</span>
-          Enter Intern Portal
-        </a>
+        <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto shrink-0">
+          <a
+            href={DEFAULT_MAILTO_HREF}
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-primary text-on-primary font-bold rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-primary/20 text-sm flex-1 sm:flex-initial whitespace-nowrap"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Send CV via Email
+          </a>
+          <button
+            type="button"
+            onClick={handleCopyEmail}
+            className="inline-flex items-center justify-center gap-2 px-4 py-3 bg-surface-container-lowest border border-outline-variant/50 text-on-surface font-semibold rounded-xl hover:bg-surface-container transition-all text-sm flex-1 sm:flex-initial whitespace-nowrap"
+            title="Copy email address"
+          >
+            {copied ? (
+              <svg className="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+              </svg>
+            )}
+            {copied ? 'Copied!' : 'Copy Email'}
+          </button>
+        </div>
       </div>
 
       {/* Layout */}
@@ -406,37 +473,98 @@ export default function CareersHub() {
             </div>
           )}
 
-          {/* Error Display */}
+          {/* Direct Email Application Fallback (When API is updating/deploying) */}
           {!loading && error && (
-            <div className="text-center py-16 bg-surface-container-low rounded-3xl border border-outline-variant/30">
-              <div className="w-16 h-16 bg-error-container/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="material-symbols-outlined text-3xl text-error">cloud_off</span>
+            <div className="py-12 px-6 sm:px-10 bg-surface-container-low rounded-3xl border border-outline-variant/30 text-center max-w-3xl mx-auto ambient-shadow">
+              <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mx-auto mb-5">
+                <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
               </div>
-              <h3 className="text-xl font-bold text-on-surface mb-2">Service Temporarily Unavailable</h3>
-              <p className="text-on-surface-variant max-w-md mx-auto mb-8 px-6">
-                We&apos;re having trouble connecting to our recruitment portal. This is usually temporary, please try again in a moment.
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary mb-3">
+                Direct Submission Open
+              </span>
+              <h3 className="font-headline text-2xl sm:text-3xl font-bold text-on-surface mb-3">
+                Recruitment Portal Updating
+              </h3>
+              <p className="text-on-surface-variant max-w-xl mx-auto mb-6 text-sm sm:text-base leading-relaxed">
+                Our openings catalog is currently updating while backend services are being deployed. Do not wait for the catalog to finish deploying: our hiring team is actively accepting applications by email.
               </p>
-              <div className="space-y-4">
+
+              {/* Guidelines Box */}
+              <div className="bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-5 mb-8 text-left max-w-xl mx-auto space-y-3">
+                <div className="text-xs font-bold text-outline uppercase tracking-wider">
+                  How to Submit Your Application
+                </div>
+                <div className="space-y-3 text-sm text-on-surface">
+                  <div className="flex items-start gap-2.5">
+                    <span className="material-symbols-outlined text-primary text-lg shrink-0 mt-0.5">alternate_email</span>
+                    <div>
+                      <span className="text-on-surface-variant text-xs block">Email Address</span>
+                      <strong className="text-on-surface font-mono text-sm">{CAREERS_EMAIL}</strong>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <svg className="w-4 h-4 text-primary shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h7" />
+                    </svg>
+                    <div>
+                      <span className="text-on-surface-variant text-xs block">Subject Line Format</span>
+                      <span className="text-on-surface font-medium">Application: [Role Name] - [Your Full Name]</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <svg className="w-4 h-4 text-primary shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                    </svg>
+                    <div>
+                      <span className="text-on-surface-variant text-xs block">Attachments &amp; Links</span>
+                      <span className="text-on-surface-variant">Attach your Resume/CV (PDF) and include links to your Portfolio, GitHub, or LinkedIn.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <a
+                  href={DEFAULT_MAILTO_HREF}
+                  className="px-8 py-3.5 bg-primary text-on-primary font-bold rounded-xl shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all inline-flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                  Email Your CV Directly
+                </a>
                 <button
                   type="button"
-                  className="px-10 py-3.5 bg-primary text-on-primary font-bold rounded-xl shadow-xl shadow-primary/20 hover:opacity-90 active:scale-95 transition-all"
-                  onClick={() => window.location.reload()}
+                  onClick={handleCopyEmail}
+                  className="px-6 py-3.5 bg-surface-container-lowest border border-outline-variant/40 text-on-surface font-semibold rounded-xl hover:bg-surface-container transition-all inline-flex items-center gap-2"
                 >
-                  Retry Connection
+                  {copied ? (
+                    <svg className="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                    </svg>
+                  )}
+                  {copied ? 'Copied Email!' : 'Copy Email Address'}
                 </button>
-                {/* The backend URL used to be printed here. It means nothing to
-                    an applicant and advertises the API host to anyone who hits
-                    an error, so the diagnostic stays in the console instead. */}
-                <p className="text-sm text-on-surface-variant pt-2">
-                  Still not working?{' '}
-                  <a
-                    href="mailto:looplab888@gmail.com?subject=Careers%20page%20issue"
-                    className="text-primary font-semibold underline underline-offset-4 hover:no-underline"
-                  >
-                    Email us your CV directly
-                  </a>
-                  .
-                </p>
+              </div>
+
+              <div className="mt-8 pt-5 border-t border-outline-variant/20">
+                <button
+                  type="button"
+                  onClick={() => window.location.reload()}
+                  className="text-xs text-on-surface-variant hover:text-primary transition-colors inline-flex items-center gap-1.5"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                  </svg>
+                  Check if live openings feed has restored
+                </button>
               </div>
             </div>
           )}
