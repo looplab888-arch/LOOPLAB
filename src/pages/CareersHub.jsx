@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import api from '../services/api';
 
-const CAREERS_EMAIL = 'careers@looplab.lk';
+const CAREERS_EMAIL = 'hr@looplab.lk';
 const DEFAULT_MAILTO_SUBJECT = encodeURIComponent('Job Application - LoopLab');
 const DEFAULT_MAILTO_BODY = encodeURIComponent(
   'Hello LoopLab Hiring Team,\n\nPlease find attached my CV/Resume for your review.\n\nPosition of Interest: \nFull Name: \nContact Number: \nLinkedIn / Portfolio: \n\nThank you!'
