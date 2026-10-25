@@ -3,7 +3,7 @@
 The README embeds only framed device mockups, not the standalone capture.
 
 - Source: `raw/home.png`, copied unchanged from the homepage image supplied by the user.
-- Outputs: `looplab-laptop.png` and `looplab-desktop.png`.
+- Outputs: `looplab-laptop.png`, `looplab-desktop.png`, `looplab-iPhone-17-Pro-Max.png`, and `looplab-iPhone-Duo-fold.png`.
 - Renderer: [tools/make-mockups.js](../../tools/make-mockups.js).
 
 Run from the repository root:

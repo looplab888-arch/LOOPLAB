@@ -38,7 +38,13 @@ LoopLab brings its work, services, team and product options into one place. Visi
 
 ![LoopLab homepage presented in a custom desktop monitor mockup](docs/mockups/looplab-desktop.png)
 
-<sub>Both mockups use the supplied homepage capture. The frames are illustrative, preserve the complete image and do not represent separate device test results.</sub>
+<p align="center">
+  <img src="docs/mockups/looplab-iPhone-17-Pro-Max.png" alt="LoopLab mobile interface on iPhone 17 Pro Max mockup" width="310" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="docs/mockups/looplab-iPhone-Duo-fold.png" alt="LoopLab mobile interface on foldable device mockup" width="455" />
+</p>
+
+<sub>Mockups illustrate desktop, mobile and foldable presentation. Device frames are illustrative and preserve the complete interface.</sub>
 
 ## Explore the site
 
