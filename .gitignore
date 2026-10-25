@@ -24,7 +24,6 @@ dist-ssr
 *.sw?
 .claude/*
 docs/*
-tools/*
 .impeccable/*
 .playwright-cli/*
 .taste-skill/*
