@@ -74,3 +74,7 @@ Commercial amounts and terms require discussion. Review the refined raster logo 
 - Removed blank image framing on Sales Incentive previews and Services media by matching natural image proportions.
 - Replaced the favicon family with a LoopLab loop/orbit mark and versioned its HTML references.
 - Detailed smoke/UAT evidence, image-repetition findings, and dependency limitations are in docs/UAT-2026-10-25.md.
+
+## README and device mockups
+Replaced the outdated README with current page, setup and validation documentation. Added a refined logo usage guide and reproducible laptop/desktop mockups from the supplied homepage capture. The README embeds the mockups only. Adapted the supplied AllInOrder PNG renderer into tools/make-mockups.js within this repository; the original external script is unchanged.
+

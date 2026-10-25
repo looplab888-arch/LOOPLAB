@@ -23,7 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .claude/*
-.docs/*
+docs/*
+tools/*
 .impeccable/*
 .playwright-cli/*
 .taste-skill/*

@@ -1,258 +1,133 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/LoopLab-Precision%20in%20Every%20Cycle-613380?style=for-the-badge&labelColor=2f004c" alt="LoopLab" />
+  <img src="public/images/looplab-refined.png" alt="LoopLab refined company logo" width="230" />
 </p>
 
-<h1 align="center">🔬 LoopLab - Corporate Web Platform</h1>
+<h1 align="center">Big ideas. Built right.</h1>
 
 <p align="center">
-  <strong>A premium, design-driven corporate website built with React, Vite, and Tailwind CSS.</strong><br/>
-  Inspired by the <em>"Ethereal Core"</em> design philosophy — where precision-milled glass meets digital artistry.
+  Thoughtful design. Serious engineering.<br />
+  The company portfolio for <strong>LoopLab</strong>, built to turn curiosity into a conversation.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React" />
-  <img src="https://img.shields.io/badge/Vite-8.0-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/React_Router-7.13-CA4245?style=flat-square&logo=reactrouter&logoColor=white" alt="React Router" />
-  <img src="https://img.shields.io/badge/License-Private-333?style=flat-square" alt="License" />
+  <a href="#the-experience">Explore</a> ·
+  <a href="#run-it-locally">Get started</a> ·
+  <a href="docs/LOGO_GUIDE.md">Brand & logo</a> ·
+  <a href="docs/UAT-2026-10-25.md">Validation notes</a>
 </p>
 
----
+![LoopLab homepage presented in a custom laptop mockup](docs/mockups/looplab-laptop.png)
 
-## ✨ Overview
+<p align="center"><strong>Precision in every cycle.</strong><br />A considered interface, from the first impression to the next conversation.</p>
 
-LoopLab is a fully responsive, multi-page corporate web platform for a next-generation technology company specializing in **AI systems**, **software architecture**, and **data-driven agriculture solutions**. Every pixel follows the internal **"Ethereal Core"** design system — emphasizing kinetic depth, editorial typography, glassmorphism, and tonal layering over conventional borders and shadows.
+## The experience
 
-### 🎯 Key Highlights
+LoopLab brings its work, services, team and product options into one place. Visitors can explore projects, choose a direction and carry that context into a project enquiry.
 
-- **9 fully designed pages** with seamless client-side navigation
-- **Custom Material Design 3 color system** with 50+ semantic tokens
-- **Dual-typeface system** — Space Grotesk (headlines) + Manrope (body)
-- **Glassmorphism & ambient shadows** throughout the UI
-- **Zero 1px borders** — hierarchy achieved through tonal shifts
-- **Mobile-responsive** layouts across all breakpoints
-- **Google Material Symbols** icon integration
+| Discover | Decide | Connect |
+| :--- | :--- | :--- |
+| Filter the project gallery and explore the studio. | Browse seven product packages with monthly or full-project preferences. | Start a prefilled enquiry or contact the team directly. |
+| Explore the technologies behind the work, including expandable AWS services. | Choose mobile app development with or without AI integration. | Apply by email when the careers feed is unavailable. |
 
----
+### Designed to feel like LoopLab
 
-## 🗂️ Project Structure
+- **A recognisable identity.** Sculptural loop artwork, a refined wordmark, purple accents and generous editorial typography.
+- **Responsive by design.** A custom mobile and tablet menu, flexible layouts and readable forms.
+- **Motion with purpose.** Page transitions, scroll reveals and a branded loading indicator, with reduced-motion support.
+- **Details that finish the experience.** Custom favicon assets, a designed 404 page, legal navigation and clear form states.
 
-```
-looplab-app/
-├── public/                    # Static assets
-├── src/
-│   ├── components/
-│   │   └── Layout.jsx         # Global nav + footer shell
-│   ├── pages/
-│   │   ├── HomePage.jsx       # Landing page with hero & bento grid
-│   │   ├── AboutVision.jsx    # Company vision, mission & leadership
-│   │   ├── AboutLeadership.jsx# Extended leadership with glass cards
-│   │   ├── ServicesProjects.jsx# Services bento + project case studies
-│   │   ├── CareersHub.jsx     # Job listings, filters & CV submission
-│   │   ├── JobDetails.jsx     # Individual job posting detail view
-│   │   ├── CandidateDashboard.jsx # Authenticated candidate portal
-│   │   ├── ResearchBlog.jsx   # Blog grid with featured article
-│   │   └── ContactUs.jsx      # Contact form with map section
-│   ├── App.jsx                # Router configuration
-│   ├── main.jsx               # React entry point
-│   └── index.css              # Global styles & Tailwind directives
-├── index.html                 # HTML shell with font preloads
-├── tailwind.config.js         # Extended theme with full color system
-├── postcss.config.js          # PostCSS pipeline
-├── vite.config.js             # Vite build configuration
-└── package.json
-```
+![LoopLab homepage presented in a custom desktop monitor mockup](docs/mockups/looplab-desktop.png)
 
----
+<sub>Both mockups use the supplied homepage capture. The frames are illustrative, preserve the complete image and do not represent separate device test results.</sub>
 
-## 🚀 Pages & Routes
+## Explore the site
 
-| Route | Page | Description |
-|:------|:-----|:------------|
-| `/` | **Home** | Hero section, core competencies bento grid, agriculture impact, careers CTA |
-| `/about` | **About — Vision** | Company legacy hero, mission/vision cards, stats, leadership grid, social impact |
-| `/about/leadership` | **About — Leadership** | Extended team profiles with glassmorphism cards and bios |
-| `/services` | **Services & Projects** | Services bento grid, AI/Data/Dev/Marketing cards, project case studies |
-| `/careers` | **Careers Hub** | Job search & filters, job listing cards, CV upload sidebar form |
-| `/careers/job-details` | **Job Details** | Full job posting with role details, requirements, perks, application CTA |
-| `/candidate-dashboard` | **Candidate Dashboard** | Sidebar navigation, stats bento, notifications, profile, CV manager, application history |
-| `/blog` | **Research Blog** | Featured article, category filters, article grid, newsletter subscription |
-| `/contact` | **Contact Us** | Contact info cards, contact form, interactive map section |
+| Page | Route | What you will find |
+| :--- | :--- | :--- |
+| Home | `/` | Introduction, selected work and project entry points |
+| Our work | `/projects` | Filterable project gallery and descriptions |
+| Services | `/services` | Capabilities, project examples and technology logos |
+| The studio | `/about` | Company story and approach |
+| Packages | `/packages` | Product categories and enquiry preferences |
+| Careers | `/careers` | Openings feed and direct email applications |
+| Insights | `/blog` | Articles and ideas |
+| Contact | `/contact` | Project enquiry form and contact channels |
+| Privacy | `/privacy-policy` | Privacy information with section navigation |
+| Terms | `/terms-of-service` | Terms with the same reading layout |
 
----
+Candidate dashboard and OAuth callback routes are also present. Their live behaviour depends on the recruitment services. Unmatched routes show the custom 404 page.
 
-## 🎨 Design System — "The Ethereal Core"
+## Under the hood
 
-The design system is documented in [`stitch/prism_logic/DESIGN.md`](../stitch/prism_logic/DESIGN.md) and enforces:
+**React 19 · Vite 8 · React Router 7 · Tailwind CSS 3 · Motion 12**
 
-### Color Philosophy
-| Token | Hex | Usage |
-|:------|:----|:------|
-| `primary` | `#613380` | Main brand purple — CTAs, accents |
-| `primary-container` | `#7a4b9a` | Gradient endpoints, containers |
-| `secondary` | `#3c6184` | Supporting blue — secondary actions |
-| `surface` | `#f7f9ff` | Primary canvas background |
-| `surface-container-low` | `#f0f4fb` | Section backgrounds |
-| `surface-container-lowest` | `#ffffff` | Card surfaces |
-| `on-surface` | `#171c21` | Primary text (never #000000) |
-| `outline-variant` | `#cec3d0` | Ghost borders at 15% opacity |
+Space Grotesk gives headings their character. Manrope keeps supporting text clear. Shared design tokens and reusable components keep the pages consistent, while secondary routes load on demand.
 
-### Typography
-| Style | Font | Size | Use |
-|:------|:-----|:-----|:----|
-| Display | Space Grotesk | 3.5rem–4.5rem | Hero headlines |
-| Headline | Space Grotesk | 1.5rem–3rem | Section titles |
-| Body | Manrope | 0.875rem–1.25rem | Paragraphs, descriptions |
-| Label | Manrope | 0.625rem–0.875rem | Buttons, tags, metadata |
-
-### Custom Utilities
-```css
-.hero-gradient      /* 135° from #613380 → #7a4b9a */
-.glass-effect       /* 24px backdrop blur */
-.glass-nav          /* White/60% + 24px blur */
-.glass-card         /* White/70% + 12px blur + white border */
-.ambient-shadow     /* 40-60px blur, 4-8% opacity */
-.text-glow          /* Purple text shadow */
+```text
+src/
+  components/       Shared navigation, loader, icons and layouts
+  pages/            Public pages and recruitment account flows
+  services/         Recruitment API integration
+  projects.js       Project content
+  studio.css        Portfolio styles and responsive refinements
+public/             Brand assets, project imagery and technology logos
+docs/               Design records, logo guide, mockups and validation notes
+tools/              Reproducible documentation asset generation
 ```
 
----
+## Run it locally
 
-## 🛠️ Tech Stack
-
-| Technology | Version | Purpose |
-|:-----------|:--------|:--------|
-| **React** | 19.2 | Component-based UI framework |
-| **Vite** | 8.0 | Lightning-fast dev server & bundler |
-| **React Router** | 7.13 | Client-side routing & navigation |
-| **Tailwind CSS** | 3.4 | Utility-first CSS with custom theme |
-| **PostCSS** | 8.5 | CSS transformation pipeline |
-| **Autoprefixer** | 10.4 | Cross-browser compatibility |
-| **ESLint** | 9.39 | Code quality & linting |
-
-### External Resources
-- **Google Fonts** — Space Grotesk, Manrope
-- **Material Symbols Outlined** — Variable icon font
-- **Hosted Images** — Google Cloud static assets
-
----
-
-## ⚡ Getting Started
-
-### Prerequisites
-
-- **Node.js** ≥ 18.x
-- **npm** ≥ 9.x
-
-### Installation
+Use Node.js **22.12 or newer** and npm. From a terminal:
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd looplab-app
-
-# Install dependencies
-npm install
-```
-
-### Development
-
-```bash
-# Start the dev server
+git clone https://github.com/looplab888-arch/LOOPLAB.git
+cd LOOPLAB
+npm ci
 npm run dev
-
-# App will be available at:
-# → http://localhost:5173/
 ```
 
-### Production Build
+Open the local URL printed by Vite. It may select another port if the default is already occupied.
 
-```bash
-# Create optimized production build
-npm run build
+For connected features, create a `.env.local` file with values supplied by the project owner:
 
-# Preview the production build locally
-npm run preview
+```dotenv
+VITE_API_URL=https://your-recruitment-api.example/api
+VITE_IMS_URL=https://your-recruitment-portal.example
+VITE_FORMSPREE_ID=your-form-id
 ```
 
-### Linting
+These are configuration placeholders. `VITE_` values are exposed to the browser, so never put private keys or passwords in them. Restart Vite after changing environment settings.
 
-```bash
-# Run ESLint
-npm run lint
-```
-```bash
-# Push changes to main branch
-git add .
-git commit -m "Your comment"
-git push origin main
-```
----
+| Command | Purpose |
+| :--- | :--- |
+| `npm run dev` | Start local development |
+| `npm run build` | Produce the production bundle in `dist/` |
+| `npm run preview` | Preview the built site locally |
+| `npm run lint` | Run ESLint |
+| `node tools/make-mockups.js` | Rebuild both README device mockups |
 
-## 📱 Responsive Design
+When deploying, configure the host to serve `index.html` for client-side routes. Form delivery and recruitment flows require their respective external services.
 
-All pages are fully responsive with breakpoint-optimized layouts:
+## Brand, craft and documentation
 
-| Breakpoint | Width | Layout |
-|:-----------|:------|:-------|
-| **Mobile** | < 768px | Single column, stacked sections |
-| **Tablet** | 768px – 1024px | 2-column grids, condensed nav |
-| **Desktop** | > 1024px | Full multi-column layouts, sidebars |
+| Document | Purpose |
+| :--- | :--- |
+| [Logo guide](docs/LOGO_GUIDE.md) | Refined wordmark, favicon assets and usage guidance |
+| [Design system](DESIGN.md) | Palette, typography and interface decisions |
+| [Product context](docs/PRODUCT.md) | Scope, audience and content constraints |
+| [Implementation record](docs/IMPLEMENTATION.md) | Changes and technical notes |
+| [Package discussion](docs/PACKAGES_DISCUSSION.md) | Commercial decisions still to be agreed |
+| [Smoke tests and UAT](docs/UAT-2026-10-25.md) | Browser acceptance checks and known limits |
+| [Mockup generation](docs/mockups/README.md) | Source image, output files and regeneration |
 
-The **Candidate Dashboard** uses a fixed sidebar layout optimized for desktop usage.
+### Validation status
 
----
+The recorded browser checks cover desktop, tablet and phone layouts, navigation, package prefills, contact form states, careers fallback, image fitting and 404 recovery. See the linked report for exact coverage. These are simulated acceptance checks, not a claim of stakeholder sign-off.
 
-## 🧩 Component Architecture
-
-```mermaid
-graph TD
-    A[App.jsx] --> B[BrowserRouter]
-    B --> C[Layout]
-    C --> D[TopNavBar]
-    C --> E[Footer]
-    C --> F[Route Outlet]
-    F --> G[HomePage]
-    F --> H[AboutVision]
-    F --> I[AboutLeadership]
-    F --> J[ServicesProjects]
-    F --> K[CareersHub]
-    F --> L[JobDetails]
-    F --> M[CandidateDashboard]
-    F --> N[ResearchBlog]
-    F --> O[ContactUs]
-```
-
-> **Note:** The `CandidateDashboard` page has its own sidebar navigation and hides the global nav/footer for a full-app dashboard experience.
+At the last recorded validation, the build passed and lint reported one existing hook-dependency warning in `CandidateDashboard.jsx`. The recruitment API was unavailable; real email delivery and authenticated recruitment flows were not verified. Package prices remain intentionally unpublished.
 
 ---
 
-## 📄 Available Scripts
+[MIT License](LICENSE) · Copyright 2026 Viraj Induruwa. Third-party marks identify their respective technologies or organisations; their inclusion does not imply endorsement.
 
-| Command | Description |
-|:--------|:------------|
-| `npm run dev` | Start Vite dev server with HMR |
-| `npm run build` | Bundle for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint checks |
-
----
-
-## 🏗️ Design Decisions
-
-1. **No CDN Tailwind** — Uses a proper PostCSS pipeline with a custom `tailwind.config.js` for production-ready builds
-2. **Layout-based routing** — Shared `Layout.jsx` wraps all pages with consistent nav/footer, except the dashboard
-3. **Data-driven components** — Leadership profiles, job cards, and blog articles are rendered from arrays for maintainability
-4. **Image hosting** — All images are served from Google Cloud static URLs matching the original Stitch designs
-5. **Semantic color tokens** — 50+ Material Design 3 tokens ensure consistent theming and future dark mode support
-
----
-
-## 📜 License
-
-This project is **private and proprietary**. © 2024 LoopLab Corporate. All rights reserved.
-
----
-
-<p align="center">
-  <sub>Precision in every cycle. ✦ Built with the Ethereal Core design system.</sub>
-</p>
+<p align="center"><strong>LoopLab</strong><br />Precision in every cycle.</p>
