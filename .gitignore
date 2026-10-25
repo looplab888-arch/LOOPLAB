@@ -23,6 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 .claude/*
+.docs/*
+.impeccable/*
+.playwright-cli/*
+.taste-skill/*
+.vscode/*
 
 .env
 .env.local

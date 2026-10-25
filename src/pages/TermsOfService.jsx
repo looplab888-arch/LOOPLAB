@@ -1,15 +1,8 @@
+import LegalLayout from '../components/LegalLayout';
+
 export default function TermsOfService() {
   return (
-    <div className="bg-surface-container-low min-h-screen py-20 md:py-28 font-body">
-      <div className="max-w-2xl mx-auto bg-surface-container-lowest rounded-3xl shadow-sm p-8 md:p-12 border border-outline-variant/30">
-        <h1 className="text-[clamp(2rem,5vw,3rem)] font-headline font-bold text-on-surface mb-4 tracking-[-0.025em] text-balance">
-          Terms of Service
-        </h1>
-        <p className="text-on-surface-variant mb-12 text-sm">
-          Last Updated: April 2026
-        </p>
-
-        <div className="space-y-10 text-on-surface-variant leading-relaxed text-pretty">
+    <LegalLayout title="Terms of service">
           <section>
             <h2 className="font-headline text-xl font-bold text-on-surface mb-3 tracking-[-0.01em]">1. Agreement to Terms</h2>
             <p>
@@ -76,8 +69,6 @@ export default function TermsOfService() {
               and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
             </p>
           </section>
-        </div>
-      </div>
-    </div>
+    </LegalLayout>
   );
 }

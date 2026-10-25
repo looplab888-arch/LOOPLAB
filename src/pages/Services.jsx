@@ -1,148 +1,25 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import LogoLoop from '../components/LogoLoop';
-
-export default function Services() {
-  const techStack = [
-    { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
-    { name: 'Django', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg' },
-    { name: 'FastAPI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg' },
-    { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
-    { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
-    { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg' },
-    { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg' },
-    { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
-    { name: 'Azure', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg' },
-    { name: 'Flutter', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg' }
-  ];
-
-  const services = [
-    {
-      title: 'Custom Web & Mobile Development',
-      icon: 'devices',
-      desc: 'End-to-end development of robust, scalable applications using modern frameworks like React and Flutter.'
-    },
-    {
-      title: 'AI & Machine Learning Solutions',
-      icon: 'psychology',
-      desc: 'Building intelligent systems, neural networks, and predictive models to drive data-driven decision making.'
-    },
-    {
-      title: 'Automation & Digital Transformation',
-      icon: 'auto_mode',
-      desc: 'Streamlining business processes through intelligent automation and modernization of digital workflows.'
-    },
-    {
-      title: 'Research & Academic Project Development',
-      icon: 'science',
-      desc: 'Providing high-quality, original support for technical research and complex academic project implementation.'
-    },
-    {
-      title: 'Technical Mentorship & Guidance',
-      icon: 'school',
-      desc: 'Expert-led sessions to help you understand, build, and explain complex technological solutions.'
-    }
-  ];
-
-  return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section className="relative pt-20 pb-32 px-8 overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7 text-center lg:text-left">
-            <h1 className="font-headline text-[clamp(2.5rem,6vw,4.5rem)] font-bold tracking-[-0.025em] text-on-surface mb-6 leading-[1.05] text-balance">
-              Software for real problems, not demos
-            </h1>
-            <p className="text-xl text-on-surface-variant max-w-2xl mb-10 leading-relaxed mx-auto lg:mx-0 text-pretty">
-              Five things we do well. If your project needs something outside
-              this list, tell us anyway and we will point you in the right
-              direction.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <Link to="/contact">
-                <button className="bg-primary text-on-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary-container transition-colors">Start a Project</button>
-              </Link>
-            </div>
-          </div>
-          <div className="lg:col-span-5 relative">
-            <div className="aspect-square rounded-3xl overflow-hidden shadow-lg relative z-10">
-              <img loading="lazy" alt="Our Services" className="w-full h-full object-cover" src="/services_hero_1775744004322.webp" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tech Stack Loop */}
-      <section className="bg-surface-container-low py-16 border-y border-outline-variant/10">
-        <div className="max-w-7xl mx-auto px-8 mb-8 text-center lg:text-left">
-          <h2 className="font-headline text-3xl font-bold mb-2">Our Technology Stack</h2>
-          <p className="text-on-surface-variant">We use industry-leading frameworks and platforms to ensure maximum efficiency.</p>
-        </div>
-        {/* Desktop View */}
-        <div className="hidden md:block">
-          <LogoLoop items={techStack} speed={40} />
-        </div>
-
-        {/* Mobile View - Bento Grid */}
-        <div className="md:hidden px-6 max-w-sm mx-auto">
-          <div className="grid grid-cols-2 gap-3 auto-rows-[120px]">
-            {techStack.map((tech, index) => {
-              // Create dynamic bento layout spans
-              let spanClass = "col-span-1 row-span-1";
-              if (index === 0 || index === 3 || index === 9) {
-                spanClass = "col-span-2 row-span-1"; // Wide items
-              } else if (index === 4) {
-                spanClass = "col-span-1 row-span-2"; // Tall item
-              }
-              
-              return (
-                <div key={tech.name} className={`group bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col items-center justify-center gap-3 hover:border-primary/30 active:border-primary/30 hover:shadow-md transition-all ${spanClass}`}>
-                  <img src={tech.icon} alt={tech.name} className="w-10 h-10 object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-active:grayscale-0 group-active:opacity-100 transition-all duration-300 transform group-hover:scale-110 group-active:scale-110" />
-                  <span className="text-xs font-bold tracking-wide text-on-surface-variant group-hover:text-primary group-active:text-primary transition-colors text-center">{tech.name}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* An indexed list rather than five identical cards with a rounded icon
-          tile above each heading. The numbers earn their place here: this is
-          the studio's actual list of five practice areas. */}
-      <section className="py-20 md:py-28 px-6 md:px-8 bg-surface">
-         <div className="max-w-5xl mx-auto">
-            <ol className="divide-y divide-outline-variant/40 border-y border-outline-variant/40">
-              {services.map((service, i) => (
-                <li key={service.title} className="grid grid-cols-[auto_1fr] md:grid-cols-[4rem_1fr_auto] gap-x-6 gap-y-3 py-8 md:py-10 items-baseline group">
-                  <span className="font-headline text-2xl md:text-3xl font-bold text-outline tabular-nums" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <div>
-                    <h3 className="font-headline text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-3 text-balance">
-                      {service.title}
-                    </h3>
-                    <p className="text-on-surface-variant leading-relaxed max-w-2xl text-pretty">{service.desc}</p>
-                  </div>
-                  <span aria-hidden="true" className="hidden md:block material-symbols-outlined text-3xl text-primary self-center opacity-40 group-hover:opacity-100 transition-opacity">
-                    {service.icon}
-                  </span>
-                </li>
-              ))}
-            </ol>
-         </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24 px-8">
-        <div className="max-w-5xl mx-auto bg-primary rounded-3xl p-12 md:p-16 text-center text-on-primary relative overflow-hidden shadow-2xl shadow-primary/30">
-                    <div className="relative z-10">
-            <h2 className="font-headline text-4xl md:text-5xl font-bold mb-8">Ready to build your next big idea?</h2>
-            <p className="text-on-primary-container/80 text-xl mb-12 max-w-2xl mx-auto">Partner with our labs to transform your idea into a high-precision, robust reality.</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact"><button className="bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg hover:bg-on-primary-container transition-colors">Start a Project</button></Link>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+import { Arrow, Reveal } from '../components/StudioUI';
+const technologyGroups = [
+ { name: 'Backend', tools: [['Python', 'python'], ['Django', 'django'], ['FastAPI', 'fastapi'], ['Flask', 'flask'], ['Node.js', 'nodejs']] },
+ { name: 'Frontend', tools: [['React', 'react'], ['Next.js', 'nextjs'], ['TypeScript', 'typescript'], ['JavaScript', 'javascript'], ['Tailwind CSS', 'tailwindcss']] },
+ { name: 'AI / ML', tools: [['TensorFlow', 'tensorflow'], ['PyTorch', 'pytorch'], ['Scikit-learn', 'scikitlearn'], ['OpenCV', 'opencv'], ['Keras', 'keras']] },
+ { name: 'Data & mobile', tools: [['PostgreSQL', 'postgresql'], ['Oracle', 'oracle'], ['Apache Cassandra', 'cassandra'], ['SQLite', 'sqlite'], ['React Native', 'react'], ['Flutter', 'flutter'], ['MongoDB', 'mongodb']] },
+ { name: 'Cloud & deploy', tools: [['AWS', 'aws'], ['Google Cloud', 'googlecloud'], ['Azure', 'azure'], ['Docker', 'docker'], ['Nginx', 'nginx']] },
+];
+const capabilities = [
+ { title:'Web & mobile', description:'The right experience, on every screen.', body:'We design and develop websites and applications around the people who will use them. Clear journeys, thoughtful interfaces, and a maintainable foundation.', scope:['Business websites and portfolios','Web applications and customer portals','Flutter mobile applications','API and third-party integrations'], image:'/images/sales-incentive.webp', project:'Sales Incentive System', target:'sales-incentive', tools:'React / Flutter / Django / FastAPI' },
+ { title:'Applied AI', description:'Intelligence with a purpose.', body:'Start with a useful question and the data to answer it. We develop forecasting, language, and vision models, then connect them to an experience people can use.', scope:['Predictive models and forecasting','Conversational AI and NLP','Computer vision and classification','Model integration and evaluation'], image:'/images/fidelity.webp', project:'Fidelity Engine', target:'fidelity', tools:'Python / Machine learning / Computer vision' },
+ { title:'Business automation', description:'Less friction. More focus.', body:'Bring disconnected processes into one system. We build around how your team works, with workflows, access rules, and reporting that fit the job.', scope:['Custom management platforms','Sales and incentive workflows','LMS and POS systems','Reporting and process automation'], image:'/images/healthcare.webp', project:'Hospital AI Admin', target:'healthcare', tools:'Django / PostgreSQL / MongoDB / Cloud' },
+ { title:'Research & mentorship', description:'Build it. Understand it.', body:'Technical guidance for experiments, prototypes, and research projects. We help you reason through decisions and understand the implementation well enough to explain it.', scope:['Research prototypes and experiments','Technical implementation guidance','Model evaluation and documentation','One-to-one technical mentorship'], image:'/images/gemtech.webp', project:'GemTech', target:'gemtech', tools:'Python / Prototyping / Evaluation / Documentation' },
+];
+export default function Services(){
+ const [active,setActive]=useState(0); const [cloudOpen,setCloudOpen]=useState(false); const item=capabilities[active];
+ return <>
+  <section className="page-intro wrap"><h1>Good ideas need<br /><span>good execution.</span></h1><div className="intro-split"><p>Design, engineering, and applied AI. The skills to connect your idea to the people who need it.</p><Link to="/contact" className="button primary">Talk through your project <Arrow /></Link></div></section>
+  <section className="capability-section wrap"><div className="capability-menu" role="group" aria-label="Explore capabilities">{capabilities.map((c,i)=><button key={c.title} aria-pressed={active===i} onClick={()=>setActive(i)}><span>{c.title}</span><Arrow /></button>)}</div><div className="capability-content" aria-live="polite"><div className="capability-copy"><h2>{item.description}</h2><p>{item.body}</p><ul>{item.scope.map(s=><li key={s}>{s}</li>)}</ul><span className="tool-note">{item.tools}</span></div><Link to={`/projects#${item.target}`} className="capability-image"><img key={item.image} src={item.image} alt={`${item.project} project ${active===0?'interface':'artwork'}`} width="1200" height="800" /><span>{item.project}<Arrow /></span></Link></div></section>
+  <section className="delivery-section on-dark"><div className="wrap"><Reveal className="section-heading"><h2>The build is only<br />part of the job.</h2><p>Clarity before development.<br />Care throughout delivery.</p></Reveal><div className="delivery-grid">{[['A shared definition','We work through requirements and agree on what the first version should do.'],['A visible process','Design and development reviews give you opportunities to make decisions as the work takes shape.'],['A useful handover','Documentation and explanations help you understand the product and what comes next.'],['Room to evolve','We discuss future changes and support as part of a plan that fits your product.']].map(([title,body],i)=><Reveal key={title} delay={i*60}><h3>{title}</h3><p>{body}</p></Reveal>)}</div></div></section>
+  <section className="tools-section wrap"><h2>Chosen for the job.</h2><p>We select tools for your requirements, not the other way around.</p><div className="technology-groups">{technologyGroups.map(group=><div className="technology-group" key={group.name}><h3>{group.name}</h3><ul>{group.tools.map(([name, icon])=><li key={name}>{name === 'AWS' ? <div className="aws-disclosure" onMouseEnter={()=>setCloudOpen(true)} onMouseLeave={()=>setCloudOpen(false)}><button type="button" className="technology-row" onClick={()=>setCloudOpen(!cloudOpen)} aria-expanded={cloudOpen} aria-controls="aws-services"><img src={`/images/tool-logos/${icon}.svg`} alt="" width="28" height="28" /><span>{name}</span><span aria-hidden="true" className="technology-toggle">{cloudOpen ? '−' : '+'}</span></button><div id="aws-services" className="aws-services" hidden={!cloudOpen}>{[['EC2', 'ec2'], ['Lambda', 'lambda'], ['S3', 's3'], ['Amplify', 'amplify']].map(([service, icon])=><div className="aws-service" key={service}><img src={`/images/tool-logos/${icon}.svg`} alt="" width="18" height="18" /><span>{service}</span></div>)}</div></div> : <div className="technology-row"><img src={`/images/tool-logos/${icon}.svg`} alt="" width="28" height="28" loading="lazy" /><span>{name}</span></div>}</li>)}</ul></div>)}</div><div className="inline-callout"><h3>Looking for a starting scope?</h3><Link className="text-link" to="/packages">Explore product packages <Arrow /></Link></div></section>
+ </>;
 }

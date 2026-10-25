@@ -1,0 +1,28 @@
+export default function CareersHub() {
+ const [jobs,setJobs]=useState([]), [loading,setLoading]=useState(true), [error,setError]=useState(null);
+ const [search,setSearch]=useState(''), [category,setCategory]=useState(''), [location,setLocation]=useState('');
+ const [activeJob,setActiveJob]=useState(null), [retry,setRetry]=useState(0), [copyStatus,setCopyStatus]=useState('');
+ const origin = useRef(null);
+ const IMS_URL=(import.meta.env.VITE_IMS_URL||'http://localhost:5173').replace(/\/+$/, '');
+ useEffect(()=>{
+   let alive=true;
+   api.get('/job-posts/?status=Live').then(data=>{if(alive){setJobs(data.items||[]);setError(null);}}).catch(()=>{if(alive)setError('Current openings could not be loaded. You can retry or send your CV by email.');}).finally(()=>{if(alive)setLoading(false);});
+   return ()=>{alive=false;};
+ },[retry]);
+ const filtered=jobs.filter(j=>(!category||j.category===category)&&(!location||j.location===location)&&(!search.trim()||[j.title,j.description,j.category,j.tags].filter(Boolean).join(' ').toLowerCase().includes(search.toLowerCase().trim())));
+ const clear=()=>{setSearch('');setCategory('');setLocation('');};
+ const copy=async()=>{try{await navigator.clipboard.writeText(CAREERS_EMAIL);setCopyStatus('Email copied');}catch{setCopyStatus('Could not copy. Select the email address below.');}};
+ const closeJob=()=>{setActiveJob(null);origin.current?.focus();};
+ return <div className="careers-page">
+  {activeJob&&<JobDetailModal job={activeJob} onClose={closeJob} imsUrl={IMS_URL}/>}
+  <section className="page-intro wrap"><h1>Find your place.<br /><span>Make your mark.</span></h1><div className="intro-split"><p>Curious minds. Thoughtful builders. Join us in turning difficult problems into software that matters.</p><a href="#open-roles" className="button primary">Explore opportunities <Arrow /></a></div></section>
+  <section className="careers-banner wrap"><div><h2>Bring curiosity.<br />Build with care.</h2><p>We value people who ask thoughtful questions, share what they learn, and care about the details.</p><span>Engineering · Design · Applied AI · Research</span></div><img src="/images/loop-sculpture.webp" alt="LoopLab sculptural loop artwork" width="1200" height="800"/></section>
+  <section className="careers-openings wrap" id="open-roles"><div className="section-heading"><h2>Open possibilities.</h2><p>Explore current roles.<br />Find the work that fits your skills.</p></div><div className="careers-filters"><label>Search opportunities<input type="search" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Role, skill, or keyword"/></label><label>Discipline<select value={category} onChange={e=>setCategory(e.target.value)}><option value="">All disciplines</option>{[...new Set(jobs.map(j=>j.category).filter(Boolean))].map(c=><option key={c}>{c}</option>)}</select></label><label>Location<select value={location} onChange={e=>setLocation(e.target.value)}><option value="">All locations</option>{[...new Set(jobs.map(j=>j.location).filter(Boolean))].map(l=><option key={l}>{l}</option>)}</select></label></div>
+   {(search||category||location)&&<button className="text-link" onClick={clear}>Clear filters</button>}
+   <div aria-live="polite" aria-busy={loading}>
+   {loading?<div className="careers-loading" role="status"><span>Loading current opportunities...</span><div/><div/></div>:error?<div className="careers-empty"><span className="material-symbols-outlined" aria-hidden="true">cloud_off</span><h3>Let’s keep the door open.</h3><p>{error}</p><button className="button dark" onClick={()=>{setLoading(true);setError(null);setRetry(x=>x+1);}}>Try again <Arrow /></button></div>:filtered.length===0?<div className="careers-empty"><h3>{jobs.length?'No matching roles.':'No open roles listed right now.'}</h3><p>{jobs.length?'Try another keyword or clear your filters.':'You can still introduce yourself by email. Tell us about your interests and the work you would like to do.'}</p>{jobs.length>0&&<button onClick={clear} className="button dark">Clear filters</button>}</div>:<ul className="career-results">{filtered.map(job=><li key={job.id}><button onClick={e=>{origin.current=e.currentTarget;setActiveJob(job);}}><span className="role-category">{job.category||'General'}<small>{job.location||'Location to be confirmed'}</small></span><span className="role-summary"><strong>{job.title}</strong><span>{job.description}</span><small>{[job.stipend_range,job.capacity?`${job.capacity} opening${job.capacity===1?'':'s'}`:''].filter(Boolean).join(' · ')}</small></span><span className="role-action">View role <Arrow /></span></button></li>)}</ul>}
+   </div>
+  </section>
+  <section className="careers-email wrap"><div><h2>More than a CV.</h2><p>Tell us what you enjoy building. Share your CV, the role you’re interested in, and a portfolio or project link if you have one.</p><a href={DEFAULT_MAILTO_HREF}>{CAREERS_EMAIL}</a></div><div><a className="button primary" href={DEFAULT_MAILTO_HREF}>Introduce yourself <Arrow /></a><button className="text-link" onClick={copy}>Copy email address</button><p role="status" className="copy-status">{copyStatus}</p><p className="email-help">Your email app will open with a draft.<br />Attach your CV before sending.</p></div></section>
+ </div>;
+}

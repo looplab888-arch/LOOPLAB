@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import { Arrow } from '../components/StudioUI';
 
 // One source of truth for the number: E.164 for links, spaced for reading.
 const PHONE_E164 = '+94701857206';
@@ -15,10 +17,14 @@ function WhatsAppIcon(props) {
 }
 
 export default function ContactUs() {
+  const [params] = useSearchParams();
+  const requestedProduct = params.get('product') || params.get('project') || '';
+  const requestedPlan = params.get('plan') || '';
+  const requestedAI = params.get('ai') || '';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
+    subject: [requestedProduct, requestedPlan, requestedAI].filter(Boolean).join(' | '),
     message: ''
   });
   
@@ -38,6 +44,7 @@ export default function ContactUs() {
       const formId = import.meta.env.VITE_FORMSPREE_ID;
       const response = await fetch(`https://formspree.io/f/${formId}`, {
         method: 'POST',
+        signal: AbortSignal.timeout(15000),
         headers: {
           'Content-Type': 'application/json'
         },
@@ -60,24 +67,25 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="pt-24 sm:pt-32 pb-16 md:pb-24 px-6 md:px-8 max-w-7xl mx-auto min-h-screen">
-      <header className="mb-12 md:mb-20 text-center md:text-left">
-        <h1 className="font-headline text-[clamp(2.5rem,6vw,4.5rem)] font-bold tracking-[-0.025em] text-on-surface mb-6 text-balance">Get in touch</h1>
-        <p className="text-on-surface-variant max-w-2xl mx-auto md:mx-0 text-base sm:text-lg leading-relaxed text-pretty">
-          Tell us what you are trying to build. If we are not the right fit we
-          will say so, and point you somewhere better.
+    <div className="contact-page wrap">
+      <header className="page-intro">
+        <h1>Let’s make<br /><span>something useful.</span></h1>
+        <p>
+          Tell us about your idea, who it is for, and what you want to achieve. We’ll help you work out the next step.
         </p>
+        <p className="contact-intro-note">A short outline is enough. We can shape the detail together.</p>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
-        <div className="lg:col-span-4 space-y-4">
+      <div className="contact-workspace grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+        <div className="contact-channels lg:col-span-4 space-y-4">
+          <h2>Prefer a conversation?</h2>
           {/* WhatsApp first: it is the fastest route to a reply, and it is the
               one channel people will actually use from a phone. */}
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-4 p-5 rounded-2xl bg-[#25D366] text-[#0b2e18] hover:bg-[#1eb958] transition-colors"
+            className="contact-whatsapp group flex items-center gap-4 p-5 rounded-2xl transition-colors"
           >
             <WhatsAppIcon className="w-8 h-8 shrink-0" />
             <span className="min-w-0">
@@ -121,11 +129,11 @@ export default function ContactUs() {
         </div>
 
         <div className="lg:col-span-8">
-          <div className="bg-surface-container-lowest p-6 sm:p-8 md:p-12 rounded-3xl shadow-xl border border-outline-variant/10 relative overflow-hidden">
+          <div className="contact-form-panel p-6 sm:p-8 md:p-12 relative overflow-hidden">
             {status === 'success' ? (
               <div role="status" className="py-8 sm:py-12 flex flex-col items-center text-center space-y-8 ll-fade-zoom-in">
                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4 relative">
-                  <div aria-hidden="true" className="absolute inset-0 rounded-full bg-primary/20 animate-ping"></div>
+                  
                   <span aria-hidden="true" className="material-symbols-outlined text-4xl sm:text-5xl relative z-10" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                 </div>
                 <div>
@@ -143,7 +151,9 @@ export default function ContactUs() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              <form onSubmit={handleSubmit} className="space-y-6 relative z-10" aria-busy={status === 'submitting'}>
+                <div className="contact-form-heading"><h2>Tell us what you have in mind.</h2><p>A few details help us start the right conversation.</p></div>
+                <fieldset className="enquiry-topics"><legend>What brings you here?</legend><div>{['A website', 'A business system', 'An AI product', 'Something else'].map(topic => <button key={topic} type="button" aria-pressed={formData.subject === topic} onClick={() => setFormData(prev => ({...prev, subject:topic}))}>{topic}</button>)}</div></fieldset>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label htmlFor="contact-name" className="block text-xs font-bold uppercase tracking-widest text-on-surface-variant ml-1">Name</label>
@@ -155,7 +165,7 @@ export default function ContactUs() {
                       value={formData.name}
                       onChange={handleChange}
                       className="w-full bg-surface-container-low border border-transparent rounded-xl p-4 focus:border-primary/30 transition-all"
-                      placeholder="John Doe"
+                      placeholder="Your full name"
                       type="text"
                     />
                   </div>
@@ -169,7 +179,7 @@ export default function ContactUs() {
                       value={formData.email}
                       onChange={handleChange}
                       className="w-full bg-surface-container-low border border-transparent rounded-xl p-4 focus:border-primary/30 transition-all"
-                      placeholder="john@example.com"
+                      placeholder="you@company.com"
                       type="email"
                     />
                   </div>
@@ -183,7 +193,7 @@ export default function ContactUs() {
                     value={formData.subject}
                     onChange={handleChange}
                     className="w-full bg-surface-container-low border border-transparent rounded-xl p-4 focus:border-primary/30 transition-all"
-                    placeholder="Inquiry about..."
+                    placeholder="What would you like to build?"
                     type="text"
                   />
                 </div>
@@ -196,7 +206,7 @@ export default function ContactUs() {
                     value={formData.message}
                     onChange={handleChange}
                     className="w-full bg-surface-container-low border border-transparent rounded-xl p-4 focus:border-primary/30 resize-none transition-all"
-                    placeholder="How can we help you?"
+                    placeholder="Share your goals, the features you have in mind, and any timeline you are working towards."
                     rows={5}
                   ></textarea>
                 </div>
@@ -211,7 +221,7 @@ export default function ContactUs() {
 
                 <button 
                   disabled={status === 'submitting'}
-                  className="w-full bg-primary text-on-primary py-5 rounded-2xl font-headline font-bold text-lg hover:shadow-2xl hover:translate-y-[-2px] active:scale-[0.98] transition-all flex items-center justify-center gap-3 group disabled:opacity-70 disabled:pointer-events-none"
+                  className="contact-submit w-full bg-primary text-on-primary py-5 rounded-2xl font-headline font-bold text-lg hover:shadow-2xl hover:translate-y-[-2px] active:scale-[0.98] transition-all flex items-center justify-center gap-3 group disabled:opacity-70 disabled:pointer-events-none"
                   type="submit"
                 >
                   {status === 'submitting' ? (
@@ -221,18 +231,18 @@ export default function ContactUs() {
                     </>
                   ) : (
                     <>
-                      Send Message
-                      <span aria-hidden="true" className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                      Send your enquiry <Arrow />
                     </>
                   )}
                 </button>
+                <p className="contact-privacy">We use your details to respond to your enquiry. <Link to="/privacy-policy">Read our privacy policy</Link>.</p>
               </form>
             )}
           </div>
         </div>
       </div>
 
-      <section className="mt-16 md:mt-24">
+      <section className="contact-location mt-16 md:mt-24"><div><h2>Find us in Sri Lanka.</h2><p>No. 74/1, Neelammahara, Buthpitiya, Mahara</p></div>
         <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-3xl sm:rounded-3xl overflow-hidden shadow-2xl bg-surface-container-low border border-outline-variant/10">
           <iframe
             title="Map showing the LoopLab office in Mahara, Sri Lanka"
@@ -248,4 +258,5 @@ export default function ContactUs() {
     </div>
   );
 }
+
 
